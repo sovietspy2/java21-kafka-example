@@ -12,10 +12,15 @@ import org.springframework.stereotype.Service;
 public class TrainConsumerService {
     private static Logger LOGGER = LoggerFactory.getLogger(TrainConsumerService.class);
 
-    @KafkaListener(topics = "train", groupId = "foo")
-    public void listenGroupFoo(@Payload  String message,
+    @KafkaListener(topics = "text", groupId = "foo", containerFactory = "notTheDefaultKafkaListenerContainerFactory")
+    private void listenGroupFoo(@Payload  String message,
                                @Header(KafkaHeaders.RECEIVED_PARTITION) int partition) {
         LOGGER.debug("Received Message in group foo: " + message +" from partition: " + partition);
     }
+
+//    @KafkaListener(topics="train", groupId = "testGroup", containerFactory = "kafkaTrainMessageListenerFactory")
+//    private void listenToTrains(@Payload TrainMessage message) {
+//        LOGGER.debug("Received Message in group bar: " + message);
+//    }
 
 }

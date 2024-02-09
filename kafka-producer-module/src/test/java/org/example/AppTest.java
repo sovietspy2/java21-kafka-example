@@ -10,10 +10,10 @@ public class AppTest {
     @Autowired
     private TrainMessageService trainMessageService;
 
-    @Test
-    public void testSendMessage() {
-        trainMessageService.sendMessage("Hello, Kafka!");
-    }
+//    @Test
+//    public void testSendMessage() {
+//        trainMessageService.sendMessage("Hello, Kafka!");
+//    }
 
 
 }

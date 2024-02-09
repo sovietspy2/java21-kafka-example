@@ -10,18 +10,25 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.CompletableFuture;
 
 @Service
- public class TrainMessageService {
+public class TrainMessageService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TrainMessageService.class);
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, TrainMessage> trainKafkaTemplate;
 
-    public void sendMessage(String message) {
+    @Autowired
+    private KafkaTemplate<String, String> textKafkaTemplate;
+
+    public void sendSimpleMessage() {
+        textKafkaTemplate.send("text", "Hello, World!");
+    }
+
+    public void sendMessage(TrainMessage message) {
         sendMessageWithRetry(message, 3);
     }
 
-    private void sendMessageWithRetry(String message, int retryCount) {
+    private void sendMessageWithRetry(TrainMessage message, int retryCount) {
 
         if (retryCount > 3) {
             LOGGER.error("No more retries for message=[" + message + "]");
@@ -29,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
         }
 
         String TOPIC = "train";
-        CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(TOPIC, message);
+        CompletableFuture<SendResult<String, TrainMessage>> future = trainKafkaTemplate.send(TOPIC, message);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
                 LOGGER.debug("Sent message=[" + message + "] with offset=[" + result.getRecordMetadata().offset() + "]");

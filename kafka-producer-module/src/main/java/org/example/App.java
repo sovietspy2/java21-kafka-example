@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.time.LocalDateTime;
+import java.util.Random;
+import java.util.UUID;
+
 /**
  * Hello world!
  *
@@ -25,6 +29,17 @@ public class App
 
     @Scheduled(fixedRate = 5000)
     public void process() {
-        trainMessageService.sendMessage("Hello, Kafka!");
+        trainMessageService.sendMessage(generateRandomTrainMessage());
+        trainMessageService.sendSimpleMessage();
+    }
+
+    private TrainMessage generateRandomTrainMessage() {
+        return new TrainMessage(
+                UUID.randomUUID(),
+                Station.values()[new Random().nextInt(Station.values().length)],
+                LocalDateTime.now(),
+                new Random().nextInt(100),
+                TrainType.values()[new Random().nextInt(TrainType.values().length)]
+        );
     }
 }
