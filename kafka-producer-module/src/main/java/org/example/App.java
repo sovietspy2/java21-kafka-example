@@ -39,7 +39,8 @@ public class App
                 Station.values()[new Random().nextInt(Station.values().length)],
                 LocalDateTime.now(),
                 new Random().nextInt(100),
-                TrainType.values()[new Random().nextInt(TrainType.values().length)]
+                TrainType.values()[(new Random().nextInt(TrainType.values().length))],
+                new Random().nextBoolean()
         );
     }
 }
