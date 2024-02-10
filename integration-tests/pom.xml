@@ -1,12 +1,22 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>domain</artifactId>
+  <artifactId>integration-tests</artifactId>
   <dependencies>
+    <dependency>
+      <artifactId>kafka-consumer-module</artifactId>
+      <groupId>org.example</groupId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <artifactId>kafka-producer-module</artifactId>
+      <groupId>org.example</groupId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <modelVersion>4.0.0</modelVersion>
-  <name>domain</name>
+  <name>integration-tests</name>
 
   <packaging>jar</packaging>
   <parent>

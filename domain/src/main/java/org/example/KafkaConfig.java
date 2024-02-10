@@ -4,6 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class KafkaConfig {
 
-    @Value(value = "${spring.kafka.bootstrap-servers}")
-    protected String bootstrapAddress;
+  @Value(value = "${spring.kafka.bootstrap-servers}")
+  protected String bootstrapAddress;
 }
